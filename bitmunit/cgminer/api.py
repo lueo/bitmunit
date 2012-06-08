@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
+import traceback
 import socket
 import json
+import time
 
 class Machine:
+
+    last_call = None
+    last_status = None
 
     def __init__(self, host, port):
         self.host = host
         self.port = port
         
-    def recv_end(self, the_socket):
+    def __recv_end(self, the_socket):
     # Recipe from http://code.activestate.com/recipes/408859-socketrecv-three-ways-to-turn-it-into-recvall/
     
         End = '\x00'
@@ -29,15 +34,14 @@ class Machine:
                     break
         return ''.join(total_data)
 
-    def request(self, cmd):
-        with SocketConnection(self.host,self.port) as skt:
-            skt.sendall(cmd)
-            data = self.recv_end(skt)
-            j = json.loads(data)
-        return j
-    
     def call(self, cmd, param=''):
-        data = self.request(json.dumps({'command': cmd, 'parameter': param}))
+        command = json.dumps({'command': cmd, 'parameter': param})
+        with SocketConnection(self.host,self.port) as skt:
+            skt.sendall(command)
+            resp = self.__recv_end(skt)
+            data = json.loads(resp)
+        self.last_status = data['STATUS'][0]
+        self.last_call = time.localtime(self.last_status['When'])
         return data
 
 class SocketConnection:
