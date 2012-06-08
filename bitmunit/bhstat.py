@@ -36,8 +36,8 @@ class BitHopperStat(MuninPlugin):
                     mhs_av_total += g['MHS av']
             except IOError:
                 pass
-        mhs_total *= 1024
-        mhs_av_total *= 1024  
+#        mhs_total *= 1024
+#        mhs_av_total *= 1024  
         return dict(rate=mhs_total, rate_av=mhs_av_total)
 
     def autoconf(self):
