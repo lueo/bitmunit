@@ -1,0 +1,2 @@
+-e git://github.com/samuel/python-munin.git#egg=python-munin
+distribute

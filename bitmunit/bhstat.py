@@ -20,19 +20,20 @@ class BitHopperStat(MuninPlugin):
 
     def __init__(self):
         super(BitHopperStat, self).__init__()
-        self.url_bh = 'http://lueo.dyndns.org:8337/data'
-        self.content_bh = urllib2.urlopen(self.url_bh)
-        self.url_p2pool = 'http://lueo.dyndns.org:9332/local_stats'
-        self.content_p2pool = urllib2.urlopen(self.url_p2pool)
-        self.data_bh=json.load(self.content_bh)
-        self.data_p2pool = json.load(self.content_p2pool)
+#        self.url_bh = 'http://lueo.dyndns.org:8337/data'
+#        self.content_bh = urllib2.urlopen(self.url_bh)
+#        self.url_p2pool = 'http://btcm.dyndns.org:9332/local_stats'
+#        self.content_p2pool = urllib2.urlopen(self.url_p2pool)
+##        self.data_bh=json.load(self.content_bh)
+#        self.data_p2pool = json.load(self.content_p2pool)
 
     def execute(self):
-        rate_bh = self.data_bh['mhash']
+#        rate_bh = self.data_bh['mhash']
+        rate_bh = 0.0
         rate_p2pool = 0.0
         for machine in self.data_p2pool['miner_hash_rates']:
             rate_p2pool += self.data_p2pool['miner_hash_rates'][machine]
-        rate = rate_bh + rate_p2pool/1024
+        rate = rate_bh + rate_p2pool/(2**20)
         return dict(rate=rate)
 
     def autoconf(self):
