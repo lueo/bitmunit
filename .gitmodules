@@ -1,3 +1,0 @@
-[submodule "python-munin"]
-	path = python-munin
-	url = git://github.com/samuel/python-munin.git
