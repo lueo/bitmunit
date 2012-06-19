@@ -80,7 +80,7 @@ The STATUS section is:
    This defaults to the cgminer version but is the value of --api-description
    if it was specified at runtime.
 
-For API version 1.9:
+For API version 1.10 and later:
 
 The list of requests - a (*) means it requires privileged access - and replies are:
 
@@ -285,7 +285,16 @@ miner.php - an example web page to access the API
 Feature Changelog for external applications using the API:
 
 
-API V1.11
+API V1.12
+
+Modified API commands:
+ 'stats' - more pool stats added
+
+Support for the ModMinerQuad FPGA was added
+
+----------
+
+API V1.11 (cgminer v2.4.2)
 
 Modified API commands:
  'save' no longer requires a filename (use default if not specified)
